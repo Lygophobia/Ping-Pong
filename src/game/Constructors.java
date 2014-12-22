@@ -38,7 +38,7 @@ public interface Constructors {
 	{
 		if(debugMessages)
 		{
-			System.out.println(s);
+			System.out.println("DEBUG: " + s);
 		}
 	}
 }
