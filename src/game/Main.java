@@ -12,6 +12,7 @@ public class Main implements Constructors
 	public static void main(String[] args) 
 	{
 		Constructors.getClient().notify();
+		//Constructors.ballX
 	}
 	
 }

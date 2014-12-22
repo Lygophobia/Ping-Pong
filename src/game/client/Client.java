@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import game.Constructors;
 import game.Main;
+import game.client.ClippingLogic;
 
 import javax.swing.JFrame;
 
@@ -35,7 +36,16 @@ public class Client implements KeyListener
 		Constructors.debugMessage("Location X: " + Constructors.playerOne.x + " Location Y:" + Constructors.playerOne.y);
 		Constructors.debugMessage("Clip X: "+ (Constructors.frameMovement) + " Clip Y: " + ((Constructors.windowHeight - (Constructors.frameMovement*3)) - Constructors.playerOne.height));
 		
-		Main.Key.put(event.getKeyCode(), event.getKeyCode());
+		int key = event.getKeyCode();
+		
+		if(key == KeyEvent.VK_SPACE)
+		{
+			ClippingLogic.ballLive = true;
+			Constructors.getClippingLogic().startGame();
+			return;
+		}
+		
+		Main.Key.put(key, key);
 		
 		new Thread() 
 		{

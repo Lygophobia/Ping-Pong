@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 
 public class GameScreen extends JPanel
 {
+	
+	public static int ballX = 25;
+	public static int ballY = (Constructors.windowHeight / 2);
+	
 	@Override
     public void paintComponent(Graphics g) 
 	{
@@ -26,6 +30,7 @@ public class GameScreen extends JPanel
 			cleanScreen(g2d);
 			drawField(g2d);
 	        drawPaddles(g2d);
+	        drawBall(g2d);
 	        
 	    	repaint();
 		} 
@@ -35,10 +40,18 @@ public class GameScreen extends JPanel
 		}
 	}
 	
+	public void drawBall(Graphics2D g2d)
+	{
+		g2d.setColor(Color.cyan);
+		g2d.fillOval(ballX, ballY, 25, 25);
+	}
+	
 	public void drawField(Graphics2D g2d)
 	{
 		g2d.setColor(Color.WHITE);
 		g2d.draw(Constructors.Field);
+		g2d.draw(Constructors.Field2);
+		g2d.draw(Constructors.Fancy1);
 	}
 	
 	public void drawPaddles(Graphics2D g2d)
