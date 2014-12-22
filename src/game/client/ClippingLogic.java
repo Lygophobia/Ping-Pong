@@ -1,5 +1,7 @@
 package game.client;
 
+import java.awt.Dimension;
+
 import game.Constructors;
 import game.client.GameScreen;
 
@@ -10,8 +12,28 @@ public class ClippingLogic extends GameScreen
 	public static int ballSpeedY = 1;
 	public static int movingDirectionLR = 2; //0 = not moving, 1 = Left, 2 = Right
 	public static int movingDirectionUD = 0; //0 = not moving, 1 = up, 2 = down
-	public static int bounce = 3;
+	public static int bounce = 1;
 	boolean nearWall = false;
+	
+	public boolean checkIfResize()
+	{
+		Dimension size = Constructors.getClient().client.getSize();
+		boolean Resized = false;
+		
+		
+		if(size.getHeight() != GameScreen.windowHeight)
+		{
+			GameScreen.windowHeight = size.getHeight();
+			Resized = true;
+		}
+		if(size.getWidth() != GameScreen.windowWidth)
+		{
+			GameScreen.windowWidth = size.getWidth();
+			Resized = true;
+		}
+		
+		return Resized;
+	}
 	
 	public void moveBall(int x, int y)
 	{
@@ -40,7 +62,7 @@ public class ClippingLogic extends GameScreen
 		Constructors.debugMessage("Moving " + (movingDirectionLR == 1 ? "Left" : "Right") + " + " + (movingDirectionUD == 1 ? "Up" : "Down"));
 		
 		nearWall = ((GameScreen.ballX >= 4 && GameScreen.ballX < 6 || 
-				GameScreen.ballX <= (Constructors.windowWidth - 39) && GameScreen.ballX >= (Constructors.windowWidth - 41)) ? true : false);
+				GameScreen.ballX <= ((int)GameScreen.windowWidth - 39) && GameScreen.ballX >= ((int)GameScreen.windowWidth - 41)) ? true : false);
 		
 		if(nearWall)
 		{
@@ -127,39 +149,47 @@ public class ClippingLogic extends GameScreen
 						switch(bounce)
 						{ 
 							case 1:
-									while(GameScreen.ballX > 5 && GameScreen.ballX < (Constructors.windowWidth - 40) //Left Right
-										  && GameScreen.ballY > 5 && GameScreen.ballY < (Constructors.windowHeight - 60)) //Up Down
+									while(GameScreen.ballX > 5 && GameScreen.ballX < ((int)GameScreen.windowWidth - 40) //Left Right
+										  && GameScreen.ballY > 5 && GameScreen.ballY < ((int)GameScreen.windowHeight - 60)) //Up Down
 									{
 										moveBall(GameScreen.ballX + ballSpeedX, GameScreen.ballY + ballSpeedY); //Right Down
 										Thread.sleep(10);
 									}
 								break;
 							case 2:
-									while(GameScreen.ballX > 5 && GameScreen.ballX < (Constructors.windowWidth - 40) 
-										  && GameScreen.ballY > 5 && GameScreen.ballY < (Constructors.windowHeight - 60))
+									while(GameScreen.ballX > 5 && GameScreen.ballX < ((int)GameScreen.windowWidth - 40) 
+										  && GameScreen.ballY > 5 && GameScreen.ballY < ((int)GameScreen.windowHeight - 60))
 									{
 										moveBall(GameScreen.ballX + ballSpeedX, GameScreen.ballY - ballSpeedY); //Right up
 										Thread.sleep(10);
 									}
 								break;
 							case 3:
-									while(GameScreen.ballX >= 5 && GameScreen.ballX < (Constructors.windowWidth - 40) 
-										  && GameScreen.ballY > 5 && GameScreen.ballY < (Constructors.windowHeight - 60))
+									while(GameScreen.ballX >= 5 && GameScreen.ballX < ((int)GameScreen.windowWidth - 40) 
+										  && GameScreen.ballY > 5 && GameScreen.ballY < ((int)GameScreen.windowHeight - 60))
 									{
 										moveBall(GameScreen.ballX - ballSpeedX, GameScreen.ballY + ballSpeedY); //Left down
 										Thread.sleep(10);
 									}
 								break;
 							case 4:
-									while(GameScreen.ballX >= 5 && GameScreen.ballX < (Constructors.windowWidth - 40) 
-									  && GameScreen.ballY > 5 && GameScreen.ballY < (Constructors.windowHeight - 60))
+									while(GameScreen.ballX >= 5 && GameScreen.ballX < ((int)GameScreen.windowWidth - 40) 
+									  && GameScreen.ballY > 5 && GameScreen.ballY < ((int)GameScreen.windowHeight - 60))
 									{
 										moveBall(GameScreen.ballX - ballSpeedX, GameScreen.ballY - ballSpeedY); //Left up
 										Thread.sleep(10);
 									}
 								break;
 						}
-						calculateBounce();
+						if(checkIfResize())
+						{
+							calculateBounce();
+							repaint();
+						} 
+						else
+						{
+							calculateBounce();
+						}
 					} 
 					catch (Exception e) 
 					{

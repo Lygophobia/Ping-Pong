@@ -6,17 +6,20 @@ import java.awt.event.KeyListener;
 import game.Constructors;
 import game.Main;
 import game.client.ClippingLogic;
+import game.client.GameScreen;
 
 import javax.swing.JFrame;
 
 public class Client implements KeyListener
 {
+	JFrame client = new JFrame();
+	//Attempting to make it Resizeable.
+	
 	public Client()
 	{
-		JFrame client = new JFrame();
 		client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		client.setTitle("Ping Pong - Client");
-		client.setSize(Constructors.windowWidth, Constructors.windowHeight);
+		client.setSize((int)GameScreen.windowWidth, (int)GameScreen.windowHeight);
 		client.setLocationRelativeTo(null);
 		client.setResizable(false);
 		client.addKeyListener(this);
@@ -33,8 +36,8 @@ public class Client implements KeyListener
 	{
 
 		Constructors.debugMessage("Key pressed : '" + event.getKeyChar() + "'");
-		Constructors.debugMessage("Location X: " + Constructors.playerOne.x + " Location Y:" + Constructors.playerOne.y);
-		Constructors.debugMessage("Clip X: "+ (Constructors.frameMovement) + " Clip Y: " + ((Constructors.windowHeight - (Constructors.frameMovement*3)) - Constructors.playerOne.height));
+		Constructors.debugMessage("Location X: " + GameScreen.playerOne.x + " Location Y:" + GameScreen.playerOne.y);
+		Constructors.debugMessage("Clip X: "+ (Constructors.frameMovement) + " Clip Y: " + (((int)GameScreen.windowHeight - (Constructors.frameMovement*3)) - GameScreen.playerOne.height));
 		
 		int key = event.getKeyCode();
 		
@@ -55,31 +58,31 @@ public class Client implements KeyListener
 				{
 					if(Main.Key.containsValue(KeyEvent.VK_W))
 					{
-						if(Constructors.playerOne.y > (Constructors.frameMovement))
+						if(GameScreen.playerOne.y > (Constructors.frameMovement))
 						{
-							Constructors.playerOne.setLocation(Constructors.playerOne.x, Constructors.playerOne.y - Constructors.frameMovement);
+							GameScreen.playerOne.setLocation(GameScreen.playerOne.x, GameScreen.playerOne.y - Constructors.frameMovement);
 						}
 					}
 					if(Main.Key.containsValue(KeyEvent.VK_S))
 					{
-						if(Constructors.playerOne.y < ((Constructors.windowHeight - (Constructors.frameMovement*4)) - Constructors.playerOne.height))
+						if(GameScreen.playerOne.y < (((int)GameScreen.windowHeight - (Constructors.frameMovement*4)) - GameScreen.playerOne.height))
 						{
-							Constructors.playerOne.setLocation(Constructors.playerOne.x, (Constructors.playerOne.y + Constructors.frameMovement));
+							GameScreen.playerOne.setLocation(GameScreen.playerOne.x, (GameScreen.playerOne.y + Constructors.frameMovement));
 						}
 					}
 
 					if(Main.Key.containsValue(KeyEvent.VK_UP))
 					{
-						if(Constructors.playerTwo.y > (Constructors.frameMovement))
+						if(GameScreen.playerTwo.y > (Constructors.frameMovement))
 						{
-							Constructors.playerTwo.setLocation(Constructors.playerTwo.x, Constructors.playerTwo.y - Constructors.frameMovement);
+							GameScreen.playerTwo.setLocation(GameScreen.playerTwo.x, GameScreen.playerTwo.y - Constructors.frameMovement);
 						}
 					}
 					if(Main.Key.containsValue(KeyEvent.VK_DOWN))
 					{
-						if(Constructors.playerTwo.y < ((Constructors.windowHeight - (Constructors.frameMovement*4)) - Constructors.playerTwo.height))
+						if(GameScreen.playerTwo.y < (((int)GameScreen.windowHeight - (Constructors.frameMovement*4)) - GameScreen.playerTwo.height))
 						{
-							Constructors.playerTwo.setLocation(Constructors.playerTwo.x, (Constructors.playerTwo.y + Constructors.frameMovement));
+							GameScreen.playerTwo.setLocation(GameScreen.playerTwo.x, (GameScreen.playerTwo.y + Constructors.frameMovement));
 						}
 					}
 					
@@ -100,7 +103,7 @@ public class Client implements KeyListener
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) 
+	public void keyTyped(KeyEvent event) 
 	{
 
 	}
