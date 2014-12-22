@@ -1,9 +1,17 @@
 package game;
 
-public class Main {
+import java.util.HashMap;
 
-	public static void main(String[] args) {
-		//Hi ali
+import game.Constructors;
+
+public class Main implements Constructors
+{
+
+	public static HashMap<Integer, Integer> Key = new HashMap<Integer, Integer>();
+	
+	public static void main(String[] args) 
+	{
+		Constructors.getClient().notify();
 	}
-
+	
 }
