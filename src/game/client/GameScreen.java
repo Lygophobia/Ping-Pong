@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class GameScreen extends JPanel
 {
 	
-	public static int ballX = 25;
+	public static int ballX = 90;
 	public static int ballY = (Constructors.windowHeight / 2);
 	
 	@Override

@@ -10,7 +10,7 @@ public class ClippingLogic extends GameScreen
 	public static int ballSpeedY = 1;
 	public static int movingDirectionLR = 2; //0 = not moving, 1 = Left, 2 = Right
 	public static int movingDirectionUD = 0; //0 = not moving, 1 = up, 2 = down
-	public static int bounce = 1;
+	public static int bounce = 3;
 	boolean nearWall = false;
 	
 	public void moveBall(int x, int y)
@@ -39,7 +39,7 @@ public class ClippingLogic extends GameScreen
 	{
 		Constructors.debugMessage("Moving " + (movingDirectionLR == 1 ? "Left" : "Right") + " + " + (movingDirectionUD == 1 ? "Up" : "Down"));
 		
-		nearWall = ((GameScreen.ballX > 4 && GameScreen.ballX < 6 || 
+		nearWall = ((GameScreen.ballX >= 4 && GameScreen.ballX < 6 || 
 				GameScreen.ballX <= (Constructors.windowWidth - 39) && GameScreen.ballX >= (Constructors.windowWidth - 41)) ? true : false);
 		
 		if(nearWall)
@@ -71,7 +71,7 @@ public class ClippingLogic extends GameScreen
 				{
 					bounce = 3; //Left Down
 					Constructors.debugMessage("Next Movement: Left Down");
-					moveBall(GameScreen.ballX + ballSpeedX, GameScreen.ballY - ballSpeedY); //Left down
+					moveBall(GameScreen.ballX - ballSpeedX, GameScreen.ballY + ballSpeedY); //Left down
 				}
 			}
 		}
@@ -83,7 +83,7 @@ public class ClippingLogic extends GameScreen
 				{
 					bounce = 3; //1 = Right Down, 2 = Right up, 3 = left Down, 4 = Left up
 					Constructors.debugMessage("Next Movement: Left Down");
-					moveBall(GameScreen.ballX + ballSpeedX, GameScreen.ballY - ballSpeedY); //Left down
+					moveBall(GameScreen.ballX - ballSpeedX, GameScreen.ballY + ballSpeedY); //Left down
 				}
 				else if(movingDirectionUD == 2) //down
 				{
@@ -146,7 +146,7 @@ public class ClippingLogic extends GameScreen
 									while(GameScreen.ballX >= 5 && GameScreen.ballX < (Constructors.windowWidth - 40) 
 										  && GameScreen.ballY > 5 && GameScreen.ballY < (Constructors.windowHeight - 60))
 									{
-										moveBall(GameScreen.ballX + ballSpeedX, GameScreen.ballY - ballSpeedY); //Left down
+										moveBall(GameScreen.ballX - ballSpeedX, GameScreen.ballY + ballSpeedY); //Left down
 										Thread.sleep(10);
 									}
 								break;
